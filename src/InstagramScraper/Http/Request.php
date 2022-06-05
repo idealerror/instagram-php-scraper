@@ -45,10 +45,8 @@ class Request
             $body = Utils::streamFor($body);
         }
         $request = new Psr7Request($method, $uri, $headers, $body);
-        
-        var_dump($request);
 
-        return new Response(self::$client->sendRequest($request));
+        return new Response($this->client->sendRequest($request));
     }
 
     /**
