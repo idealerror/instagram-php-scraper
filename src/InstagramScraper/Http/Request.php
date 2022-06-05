@@ -17,14 +17,14 @@ class Request
     /**
      * @var ClientInterface
      */
-    public $client;
+    private static $client;
 
     /**
      * @param ClientInterface $client
      */
-    public function setHttpClient(ClientInterface $client)
+    public static function setHttpClient(ClientInterface $client)
     {
-        $this->client = $client;
+        self::$client = $client;
     }
 
     /**
@@ -37,7 +37,7 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public function send(string $method, $uri, array $headers = [], array $body = null)
+    private static function send(string $method, $uri, array $headers = [], array $body = null)
     {
         if ($body !== null) {
             $body = http_build_query($body);
@@ -46,7 +46,7 @@ class Request
         }
         $request = new Psr7Request($method, $uri, $headers, $body);
 
-        return new Response($this->client->sendRequest($request));
+        return new Response(self::$client->sendRequest($request));
     }
 
     /**
@@ -58,13 +58,13 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public function get(string $url, array $headers = [], array $parameters = null)
+    public static function get(string $url, array $headers = [], array $parameters = null)
     {
         $uri = new Uri($url);
         if ($parameters !== null) {
             $uri = $uri->withQuery(http_build_query($parameters));
         }
-        return $this->send('GET', $uri, $headers);
+        return self::send('GET', $uri, $headers);
     }
 
     /**
@@ -74,8 +74,8 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public function post(string $url, array $headers = [], array $body = null)
+    public static function post(string $url, array $headers = [], array $body = null)
     {
-        return $this->send('POST', $url, $headers, $body);
+        return self::send('POST', $url, $headers, $body);
     }
 }
