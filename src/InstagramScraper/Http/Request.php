@@ -24,7 +24,7 @@ class Request
      */
     public static function setHttpClient(ClientInterface $client)
     {
-        self::$client = $client;
+        $this->client = $client;
     }
 
     /**
