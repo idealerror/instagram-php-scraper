@@ -722,10 +722,6 @@ class Instagram
     public function getAccount($username)
     {
         $response = Request::get(Endpoints::getAccountPageLink($username), $this->generateHeaders($this->userSession));
-
-        var_dump(static::HTTP_OK);
-        var_dump($response->code);
-        die;
         
         if (static::HTTP_NOT_FOUND === $response->code) {
             throw new InstagramNotFoundException('Account with given username does not exist.');
@@ -740,6 +736,8 @@ class Instagram
         if ($this->isAccountAgeRestricted($userArray, $response->raw_body)) {
             throw new InstagramAgeRestrictedException('Account with given username is age-restricted.');
         }
+        
+        dd($userArray);
 
         if (!isset($userArray['entry_data']['ProfilePage'][0]['graphql']['user'])) {
             throw new InstagramException('Response code is ' . $response->code . ': ' . static::httpCodeToString($response->code) . '.' .
@@ -810,7 +808,7 @@ class Instagram
 
             $response = Request::get(Endpoints::getAccountMediasJsonLink($variables), $this->generateHeaders($this->userSession, $this->generateGisToken($variables)));
 
-            dd($response);
+
             
             if (static::HTTP_NOT_FOUND === $response->code) {
                 throw new InstagramNotFoundException('Account with given id does not exist.');
