@@ -24,7 +24,7 @@ class Request
      */
     public static function setHttpClient(ClientInterface $client)
     {
-        $this->client = $client;
+        self::$client = $client;
     }
 
     /**
@@ -46,7 +46,7 @@ class Request
         }
         $request = new Psr7Request($method, $uri, $headers, $body);
 
-        return new Response($this->client->sendRequest($request));
+        return new Response(self::$client->sendRequest($request));
     }
 
     /**
