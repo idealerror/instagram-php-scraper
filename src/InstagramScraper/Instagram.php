@@ -692,11 +692,8 @@ class Instagram
      */
     public function getMedias($username, $count = 20, $maxId = '')
     {
-
         $account = $this->getAccount($username);
-        return $this->
-            
-            ($account->getId(), $count, $maxId);
+        return $this->getMediasByUserId($account->getId(), $count, $maxId);
     }
 
     /**
