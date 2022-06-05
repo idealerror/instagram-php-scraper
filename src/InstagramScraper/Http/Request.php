@@ -17,7 +17,7 @@ class Request
     /**
      * @var ClientInterface
      */
-    private static $client;
+    public static $client;
 
     /**
      * @param ClientInterface $client
@@ -37,7 +37,7 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    private static function send(string $method, $uri, array $headers = [], array $body = null)
+    public static function send(string $method, $uri, array $headers = [], array $body = null)
     {
         if ($body !== null) {
             $body = http_build_query($body);
