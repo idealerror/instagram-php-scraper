@@ -21,6 +21,7 @@ trait ArrayLikeTrait
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return $this->isMethod($offset, 'get') || \property_exists($this, $offset);
@@ -32,6 +33,7 @@ trait ArrayLikeTrait
      *
      * @return bool|string
      */
+    #[\ReturnTypeWillChange]
     protected function isMethod($method, $case)
     {
         $uMethod = $case . \ucfirst($method);
@@ -49,6 +51,7 @@ trait ArrayLikeTrait
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($run = $this->isMethod($offset, 'get')) {
@@ -87,6 +90,7 @@ trait ArrayLikeTrait
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if ($run = $this->isMethod($offset, 'set')) {
@@ -101,6 +105,7 @@ trait ArrayLikeTrait
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         if ($run = $this->isMethod($offset, 'unset')) {
