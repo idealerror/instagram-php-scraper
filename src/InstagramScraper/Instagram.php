@@ -736,8 +736,6 @@ class Instagram
         if ($this->isAccountAgeRestricted($userArray, $response->raw_body)) {
             throw new InstagramAgeRestrictedException('Account with given username is age-restricted.');
         }
-        
-        dd($userArray);
 
         if (!isset($userArray['entry_data']['ProfilePage'][0]['graphql']['user'])) {
             throw new InstagramException('Response code is ' . $response->code . ': ' . static::httpCodeToString($response->code) . '.' .
