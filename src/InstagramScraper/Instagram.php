@@ -723,7 +723,9 @@ class Instagram
     {
         $response = Request::get(Endpoints::getAccountPageLink($username), $this->generateHeaders($this->userSession));
 
-        dd($response);
+        var_dump(static::HTTP_OK);
+        var_dump($response->code);
+        die;
         
         if (static::HTTP_NOT_FOUND === $response->code) {
             throw new InstagramNotFoundException('Account with given username does not exist.');
