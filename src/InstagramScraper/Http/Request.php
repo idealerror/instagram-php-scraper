@@ -17,14 +17,14 @@ class Request
     /**
      * @var ClientInterface
      */
-    public static $client;
+    public $client;
 
     /**
      * @param ClientInterface $client
      */
     public static function setHttpClient(ClientInterface $client)
     {
-        self::$client = $client;
+        $this->client = $client;
     }
 
     /**
@@ -46,7 +46,7 @@ class Request
         }
         $request = new Psr7Request($method, $uri, $headers, $body);
 
-        return new Response(self::$client->sendRequest($request));
+        return new Response($this->client->sendRequest($request));
     }
 
     /**
