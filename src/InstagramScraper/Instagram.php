@@ -694,7 +694,9 @@ class Instagram
     {
 
         $account = $this->getAccount($username);
-        return $this->getMediasByUserId($account->getId(), $count, $maxId);
+        return $this->
+            
+            ($account->getId(), $count, $maxId);
     }
 
     /**
@@ -807,6 +809,8 @@ class Instagram
 
             $response = Request::get(Endpoints::getAccountMediasJsonLink($variables), $this->generateHeaders($this->userSession, $this->generateGisToken($variables)));
 
+            dd($response);
+            
             if (static::HTTP_NOT_FOUND === $response->code) {
                 throw new InstagramNotFoundException('Account with given id does not exist.');
             }
