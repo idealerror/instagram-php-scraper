@@ -22,7 +22,7 @@ class Request
     /**
      * @param ClientInterface $client
      */
-    public static function setHttpClient(ClientInterface $client)
+    public function setHttpClient(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -37,7 +37,7 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public static function send(string $method, $uri, array $headers = [], array $body = null)
+    public function send(string $method, $uri, array $headers = [], array $body = null)
     {
         if ($body !== null) {
             $body = http_build_query($body);
@@ -58,13 +58,13 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public static function get(string $url, array $headers = [], array $parameters = null)
+    public function get(string $url, array $headers = [], array $parameters = null)
     {
         $uri = new Uri($url);
         if ($parameters !== null) {
             $uri = $uri->withQuery(http_build_query($parameters));
         }
-        return self::send('GET', $uri, $headers);
+        return $this->send('GET', $uri, $headers);
     }
 
     /**
@@ -74,8 +74,8 @@ class Request
      * @return Response
      * @throws ClientExceptionInterface
      */
-    public static function post(string $url, array $headers = [], array $body = null)
+    public function post(string $url, array $headers = [], array $body = null)
     {
-        return self::send('POST', $url, $headers, $body);
+        return $this->send('POST', $url, $headers, $body);
     }
 }
