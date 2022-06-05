@@ -46,7 +46,7 @@ class Request
         }
         $request = new Psr7Request($method, $uri, $headers, $body);
         
-        dd($request);
+        var_dump($request);
 
         return new Response(self::$client->sendRequest($request));
     }
